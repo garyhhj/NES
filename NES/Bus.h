@@ -11,8 +11,7 @@ public:
 	~Bus();
 
 	//hardware components 
-	CPU cpu; 
-
+	CPU cpu; //do I need this? 
 
 	std::array<uint8_t, 64 * 1024> ram;
 
