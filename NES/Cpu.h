@@ -97,12 +97,19 @@ public:
 												{&CPU::BVS, &CPU::REL , 2, 2}, {&CPU::ADC, &CPU::INDY, 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ADC, &CPU::ZPX , 2, 4}, {&CPU::ROR, &CPU::ZPX , 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::SEI, &CPU::IMPL, 1, 2}, {&CPU::ADC, &CPU::ABSY, 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ADC, &CPU::ABSX, 3, 4}, {&CPU::ROR, &CPU::ABSX, 3, 7}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
 												{&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STA, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STY, &CPU::ZP  , 2, 3}, {&CPU::STA, &CPU::ZP  , 2, 3}, {&CPU::STX, &CPU::ZP  , 2, 3}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::DEY, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::TXA, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STY, &CPU::ABS , 3, 4}, {&CPU::STA, &CPU::ABS , 3, 4}, {&CPU::STX, &CPU::ABS , 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
 												{&CPU::BCC, &CPU::REL , 2, 2}, {&CPU::STA, &CPU::INDY, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STY, &CPU::ZPX , 2, 4}, {&CPU::STA, &CPU::ZPX , 2, 4}, {&CPU::STX, &CPU::ZPY , 2, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::TYA, &CPU::IMPL, 1, 2}, {&CPU::STA, &CPU::ABSY, 3, 5}, {&CPU::TXS, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STA, &CPU::ABSX, 3, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
-
-
-												
- 	};
+												{&CPU::LDY, &CPU::IMM , 2, 2}, {&CPU::LDA, &CPU::INDX, 2, 6}, {&CPU::LDX, &CPU::IMM , 2, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::LDY, &CPU::ZP  , 2, 3}, {&CPU::LDA, &CPU::ZP  , 2, 3}, {&CPU::LDX, &CPU::ZP  , 2, 3}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::TAY, &CPU::IMPL, 1, 2}, {&CPU::LDA, &CPU::IMM , 2, 2}, {&CPU::TAX, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::LDY, &CPU::ABS , 3, 4}, {&CPU::LDA, &CPU::ABS , 3, 4}, {&CPU::LDX, &CPU::ABS , 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
+												{&CPU::BCS, &CPU::REL , 2, 2}, {&CPU::LDA, &CPU::INDY, 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::LDY, &CPU::ZPX , 2, 4}, {&CPU::LDA, &CPU::ZPX , 2, 4}, {&CPU::LDX, &CPU::ZPY , 2, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CLV, &CPU::IMPL, 1, 2}, {&CPU::LDA, &CPU::ABSY, 3, 4}, {&CPU::TSX, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::LDY, &CPU::ABSX, 3, 4}, {&CPU::LDA, &CPU::ABSX, 3, 4}, {&CPU::LDX, &CPU::ABSY, 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
+												{&CPU::CPY, &CPU::IMM , 2, 2}, {&CPU::CMP, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CPY, &CPU::ZP  , 2, 3}, {&CPU::CMP, &CPU::ZP  , 2, 3}, {&CPU::DEC, &CPU::ZP  , 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::INY, &CPU::IMPL, 1, 2}, {&CPU::CMP, &CPU::IMM , 2, 2}, {&CPU::DEX, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CPY, &CPU::ABS , 3, 4}, {&CPU::CMP, &CPU::ABS , 3, 4}, {&CPU::DEC, &CPU::ABS , 3, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
+												{&CPU::BNE, &CPU::REL , 2, 2}, {&CPU::CMP, &CPU::INDY, 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CMP, &CPU::ZPX , 2, 4}, {&CPU::DEC, &CPU::ZPX , 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CLD, &CPU::IMPL, 1, 2}, {&CPU::CMP, &CPU::ABSY, 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CMP, &CPU::ABSX, 3, 4}, {&CPU::DEC, &CPU::ABSX, 3, 7}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
+												{&CPU::CPX, &CPU::IMM , 2, 2}, {&CPU::SBC, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CPX, &CPU::ZP  , 2, 3}, {&CPU::SBC, &CPU::ZP  , 2, 3}, {&CPU::INC, &CPU::ZP  , 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::INX, &CPU::IMPL, 1, 2}, {&CPU::SBC, &CPU::IMM , 2, 2}, {&CPU::NOP, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CPX, &CPU::ABS , 3, 4}, {&CPU::SBC, &CPU::ABS , 3, 4}, {&CPU::INC, &CPU::ABS , 3, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0},
+												{&CPU::BEQ, &CPU::REL , 2, 2}, {&CPU::SBC, &CPU::INDY, 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::SBC, &CPU::ZPX , 2, 4}, {&CPU::INC, &CPU::ZPX , 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::SED, &CPU::IMPL, 1, 2}, {&CPU::SBC, &CPU::ABSY, 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::SBC, &CPU::ABSX, 3, 4}, {&CPU::INC, &CPU::ABSX, 3, 7}, {&CPU::XXX, &CPU::XXXX, 0, 0} };
 	
-	//need to figure out clock cycles 
+	
+	//for getting one clock cycles 
+	void clock(); 
+	uint8_t clockCount; 
+
+
 
 	//read and write operations/  connecting with the bus 
 	void write(uint8_t data, uint16_t address);
@@ -113,3 +120,5 @@ private:
 	Bus* bus = nullptr; 
 
 };
+
+
