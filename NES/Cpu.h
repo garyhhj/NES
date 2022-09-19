@@ -1,4 +1,5 @@
 #include "Bus.h"
+#include <vector>
 
 class CPU
 {
@@ -40,7 +41,7 @@ public:
 	* absolute x
 	* absolute y 
 	*/
-	uint8_t ACCUM();   uint8_t IMPL();
+	uint8_t ACUM();    uint8_t IMPL();
 	uint8_t IMM();	   uint8_t REL();
 	uint8_t ZP();      uint8_t IND();
 	uint8_t ZPX();	   uint8_t INDX();
@@ -48,25 +49,57 @@ public:
 	uint8_t ABS();
 	uint8_t ABSX(); 
 	uint8_t ABSY(); 
+
+	uint8_t XXXX();
 	
 
-	
-	//opcodes 
-	uint8_t ADC();    uint8_t CLC();    uint8_t INY();    uint8_t ROL();    uint8_t TSX();
-	uint8_t AND();    uint8_t CLD();    uint8_t JMP();    uint8_t ROR();    uint8_t TXA(); 
-	uint8_t ASL();    uint8_t CLI();    uint8_t JSR();    uint8_t RTI();    uint8_t TXS(); 
-	uint8_t BCC();    uint8_t CLV();    uint8_t LDA();    uint8_t RTS();    uint8_t TYA();
-	uint8_t BCS();    uint8_t CMP();    uint8_t LDX();    uint8_t SBC();
-	uint8_t BEQ();    uint8_t CPX();    uint8_t LDY();    uint8_t SEC();
-	uint8_t BIT();    uint8_t CPY();    uint8_t LSR();    uint8_t SED();
-	uint8_t BMI();    uint8_t DEC();    uint8_t NOP();    uint8_t SEI(); 
-	uint8_t BNE();    uint8_t DEX();    uint8_t ORA();    uint8_t STA();
-	uint8_t BPL();    uint8_t DEY();    uint8_t PHA();    uint8_t STX();
-	uint8_t BRK();    uint8_t EOR();    uint8_t PHP();    uint8_t STY();
-	uint8_t BVC();    uint8_t INC();    uint8_t PLA();    uint8_t TAX();
-	uint8_t BVS();    uint8_t INX();    uint8_t PLP();    uint8_t TAY();
+	//http://datasheets.chipdb.org/Rockwell/6502.pdf
+	//opcodes (including ones with multiple addressing modes) 
+	uint8_t ADC(); uint8_t AND(); uint8_t ASL(); uint8_t BCC(); uint8_t BCS(); 
+	uint8_t BEQ(); uint8_t BIT(); uint8_t BMI(); uint8_t BNE(); uint8_t BPL(); 
+	uint8_t BRK(); uint8_t BVC(); uint8_t BVS(); uint8_t CLC(); uint8_t CLD(); 
+	uint8_t CLI(); uint8_t CLV(); uint8_t CMP(); uint8_t CPX(); uint8_t CPY(); 
+	uint8_t DEC(); uint8_t DEX(); uint8_t DEY(); uint8_t EOR(); uint8_t INC();
+	uint8_t INX(); uint8_t INY(); uint8_t JMP(); uint8_t JSR(); uint8_t LDA(); 
+	uint8_t LDX(); uint8_t LDY(); uint8_t LSR(); uint8_t NOP(); uint8_t ORA(); 
+	uint8_t PHA(); uint8_t PHP(); uint8_t PLA(); uint8_t PLP(); uint8_t ROL(); 
+	uint8_t ROR(); uint8_t RTI(); uint8_t RTS(); uint8_t SBC(); uint8_t SEC(); 
+	uint8_t SED(); uint8_t SEI(); uint8_t STA(); uint8_t STX(); uint8_t STY(); 
+	uint8_t TAX(); uint8_t TAY(); uint8_t TSX(); uint8_t TXA(); uint8_t TXS(); 
+	uint8_t TYA();
+
+	//opcodes not available in NMOS family 
+	/*
+	uint8_t BBR(); uint8_t BBS(); uint8_t BRA(); uint8_t PHX(); uint8_t PHY(); 
+	uint8_t PLX(); uint8_t PLY(); uint8_t RMB(); uint8_t SMB(); uint8_t STZ(); 
+	uint8_t TRB(); uint8_t TSB(); 
+	*/
 
 	uint8_t XXX(); 
+
+	//now need a lookup table for the opcodes 
+	struct INSTRUCTION {
+		uint8_t (CPU::*opcode)();
+		uint8_t(CPU::*addressingMode)(); 
+		uint8_t instruByte; 
+		uint8_t machineCycle;
+	};
+
+
+	//not including new opcode 
+	std::vector<INSTRUCTION> instructionSet = { {&CPU::BRK, &CPU::IMPL, 1, 7}, {&CPU::ORA, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ORA, &CPU::ZP  , 2, 3}, {&CPU::ASL, &CPU::ZP  , 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::PHP, &CPU::IMPL, 1, 3}, {&CPU::ORA, &CPU::IMM , 2, 2}, {&CPU::ASL, &CPU::ACUM, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ORA, &CPU::ABS , 3, 4}, {&CPU::ASL, &CPU::ABS , 3, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0},
+												{&CPU::BPL, &CPU::REL , 2, 2}, {&CPU::ORA, &CPU::INDY, 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ORA, &CPU::ZPX , 2, 4}, {&CPU::ASL, &CPU::ZPX , 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CLC, &CPU::IMPL, 1, 2}, {&CPU::ORA, &CPU::ABSY, 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ORA, &CPU::ABSX, 3, 4}, {&CPU::ASL, &CPU::ABSX, 3, 7}, {&CPU::XXX, &CPU::XXXX, 0, 0},
+												{&CPU::JSR, &CPU::ABS , 3, 6}, {&CPU::AND, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::BIT, &CPU::ZP  , 2, 3}, {&CPU::AND, &CPU::ZP  , 2, 3}, {&CPU::ROL, &CPU::ZP  , 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::PLP, &CPU::IMPL, 1, 4}, {&CPU::AND, &CPU::IMM , 2, 2}, {&CPU::ROL, &CPU::ACUM, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::BIT, &CPU::ABS , 3, 4}, {&CPU::AND, &CPU::ABS , 3, 4}, {&CPU::ROL, &CPU::ABS , 3, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
+												{&CPU::BMI, &CPU::REL , 2, 2}, {&CPU::AND, &CPU::INDY, 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::AND, &CPU::ZPX , 2, 4}, {&CPU::ROL, &CPU::ZPX , 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::SEC, &CPU::IMPL, 1, 2}, {&CPU::AND, &CPU::ABSY, 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::AND, &CPU::ABSX, 3, 4}, {&CPU::ROL, &CPU::ABSX, 3, 7}, {&CPU::XXX, &CPU::XXXX, 0, 0},
+												{&CPU::RTI, &CPU::IMPL, 1, 6}, {&CPU::EOR, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::EOR, &CPU::ZP  , 2, 3}, {&CPU::LSR, &CPU::ZP  , 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::PHA, &CPU::IMPL, 1, 3}, {&CPU::EOR, &CPU::IMM , 2, 2}, {&CPU::LSR, &CPU::ACUM, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::JMP, &CPU::ABS , 3, 3}, {&CPU::EOR, &CPU::ABS , 3, 4}, {&CPU::LSR, &CPU::ABS , 3, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0},
+												{&CPU::BVC, &CPU::REL , 2, 2}, {&CPU::EOR, &CPU::INDY, 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::EOR, &CPU::ZPX , 2, 4}, {&CPU::LSR, &CPU::ZPX , 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::CLI, &CPU::IMPL, 1, 2}, {&CPU::EOR, &CPU::ABSY, 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::EOR, &CPU::ABSX, 3, 4}, {&CPU::LSR, &CPU::ABSX, 3, 7}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
+												{&CPU::RTS, &CPU::IMPL, 1, 6}, {&CPU::ADC, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ADC, &CPU::ZP  , 2, 3}, {&CPU::ROR, &CPU::ZP  , 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::PLA, &CPU::IMPL, 1, 4}, {&CPU::ADC, &CPU::IMM , 2, 2}, {&CPU::ROR, &CPU::ACUM, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::JMP, &CPU::ABS , 3, 6}, {&CPU::ADC, &CPU::ABS , 3, 4}, {&CPU::ROR, &CPU::ABS , 3, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0},
+												{&CPU::BVS, &CPU::REL , 2, 2}, {&CPU::ADC, &CPU::INDY, 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ADC, &CPU::ZPX , 2, 4}, {&CPU::ROR, &CPU::ZPX , 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::SEI, &CPU::IMPL, 1, 2}, {&CPU::ADC, &CPU::ABSY, 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ADC, &CPU::ABSX, 3, 4}, {&CPU::ROR, &CPU::ABSX, 3, 7}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
+												{&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STA, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STY, &CPU::ZP  , 2, 3}, {&CPU::STA, &CPU::ZP  , 2, 3}, {&CPU::STX, &CPU::ZP  , 2, 3}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::DEY, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::TXA, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STY, &CPU::ABS , 3, 4}, {&CPU::STA, &CPU::ABS , 3, 4}, {&CPU::STX, &CPU::ABS , 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
+												
+ 	};
+	
+	//now just need to fill int eh vector LMAO this is going to be fun 
 
 	//read and write operations/  connecting with the bus 
 	void write(uint8_t data, uint16_t address);
