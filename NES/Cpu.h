@@ -96,10 +96,11 @@ public:
 												{&CPU::RTS, &CPU::IMPL, 1, 6}, {&CPU::ADC, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ADC, &CPU::ZP  , 2, 3}, {&CPU::ROR, &CPU::ZP  , 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::PLA, &CPU::IMPL, 1, 4}, {&CPU::ADC, &CPU::IMM , 2, 2}, {&CPU::ROR, &CPU::ACUM, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::JMP, &CPU::ABS , 3, 6}, {&CPU::ADC, &CPU::ABS , 3, 4}, {&CPU::ROR, &CPU::ABS , 3, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0},
 												{&CPU::BVS, &CPU::REL , 2, 2}, {&CPU::ADC, &CPU::INDY, 2, 5}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ADC, &CPU::ZPX , 2, 4}, {&CPU::ROR, &CPU::ZPX , 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::SEI, &CPU::IMPL, 1, 2}, {&CPU::ADC, &CPU::ABSY, 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::ADC, &CPU::ABSX, 3, 4}, {&CPU::ROR, &CPU::ABSX, 3, 7}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
 												{&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STA, &CPU::INDX, 2, 6}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STY, &CPU::ZP  , 2, 3}, {&CPU::STA, &CPU::ZP  , 2, 3}, {&CPU::STX, &CPU::ZP  , 2, 3}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::DEY, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::TXA, &CPU::IMPL, 1, 2}, {&CPU::XXX, &CPU::XXXX, 0, 0}, {&CPU::STY, &CPU::ABS , 3, 4}, {&CPU::STA, &CPU::ABS , 3, 4}, {&CPU::STX, &CPU::ABS , 3, 4}, {&CPU::XXX, &CPU::XXXX, 0, 0}, 
+
 												
  	};
 	
-	//now just need to fill int eh vector LMAO this is going to be fun 
+	//need to figure out clock cycles 
 
 	//read and write operations/  connecting with the bus 
 	void write(uint8_t data, uint16_t address);
